@@ -6,6 +6,8 @@ public class GameManager : MonoBehaviour
 
     public BulletsObjectPool BulletsObjectPool { get; private set; }
 
+    public ExplosionsEffectObjectPool ExplosionsEffectObjectPool { get; private set; }
+
     private void Awake()
     {
         if(Instance == null)
@@ -15,9 +17,11 @@ public class GameManager : MonoBehaviour
 
         else
         {
-            Debug.LogError("Duplicated GameManager, this may cause some bugs");
+            Destroy(gameObject);
         }
 
         BulletsObjectPool = GetComponentInChildren<BulletsObjectPool>();
+
+        ExplosionsEffectObjectPool = GetComponentInChildren<ExplosionsEffectObjectPool>();
     }
 }

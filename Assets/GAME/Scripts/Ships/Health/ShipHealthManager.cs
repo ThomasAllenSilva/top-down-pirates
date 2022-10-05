@@ -5,6 +5,8 @@ public class ShipHealthManager : MonoBehaviour, IDamageable
 {
     [field: SerializeField] public int ShipHealth { get; private set; }
 
+    [SerializeField] private GameObject _shipDeathExplosion;
+
     public event Action OnTakeDamage;
 
     public void TakeDamage(int amountOfDamage)
@@ -26,12 +28,17 @@ public class ShipHealthManager : MonoBehaviour, IDamageable
     {
         if (Input.GetKeyDown(KeyCode.F))
         {
-            TakeDamage(0);
+            TakeDamage(1);
         }
     }
 
     private void Die()
     {
         gameObject.SetActive(false);
+    }
+
+    private void OnDisable()
+    {
+        
     }
 }

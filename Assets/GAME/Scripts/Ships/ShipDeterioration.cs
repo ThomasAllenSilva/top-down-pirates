@@ -22,7 +22,10 @@ public class ShipDeterioration : MonoBehaviour
 
     private void CheckIfCanDeteriorateShip()
     {
-        
+        if (_shipHealthManager.ShipHealth % 2 == 0)
+        {
+            DeteriorateShip();
+        }
         
     }
 

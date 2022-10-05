@@ -677,6 +677,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1465106349}
+  - {fileID: 1623094859}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -875,6 +876,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <ShipHealth>k__BackingField: 12
+  _shipDeathExplosion: {fileID: 0}
 --- !u!1 &1436495704
 GameObject:
   m_ObjectHideFlags: 0
@@ -1223,6 +1225,52 @@ MonoBehaviour:
   - {fileID: 52681146}
   - {fileID: 1080507549}
   - {fileID: 856008683}
+--- !u!1 &1623094858
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1623094859}
+  - component: {fileID: 1623094860}
+  m_Layer: 0
+  m_Name: ExplosionsObjectPoolerManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 2147483647
+  m_IsActive: 1
+--- !u!4 &1623094859
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1623094858}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 932189116}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1623094860
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1623094858}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4add67c1f7c1b054bae0a699cae9f50f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _explosionsEffectPoolSize: 15
+  _explosionEffectPrefab: {fileID: 6523948971381272473, guid: bcc7c0a1c8136e14ca1d553f496d1b58, type: 3}
 --- !u!1 &1751661830
 GameObject:
   m_ObjectHideFlags: 0

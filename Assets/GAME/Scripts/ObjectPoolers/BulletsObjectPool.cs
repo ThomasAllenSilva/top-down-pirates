@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
 public class BulletsObjectPool : MonoBehaviour
 {
     [SerializeField] private int _bulletsPoolSize = 25;
@@ -12,9 +11,9 @@ public class BulletsObjectPool : MonoBehaviour
 
     private const string BulletDictionaryTagName = "Bullet";
 
-    private void Start() => InitializeBulletsObjectsPool();
+    private void Start() => InitializeBulletObjectsPool();
     
-    private void InitializeBulletsObjectsPool()
+    private void InitializeBulletObjectsPool()
     {
         Queue<Bullet> bulletsObjectsQueue = new Queue<Bullet>();
 

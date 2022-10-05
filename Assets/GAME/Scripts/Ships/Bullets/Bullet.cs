@@ -5,25 +5,32 @@ public class Bullet : MonoBehaviour
     [Range(0, 25)]
     [SerializeField] private float _bulletMovementSpeed;
 
-    [SerializeField] private int _bulletDamage;
+    private int _bulletDamage;
 
-    private void Update()
-    {
-        transform.position += _bulletMovementSpeed * Time.deltaTime * -transform.up;
-    }
+    private static GameManager _gameManager;
 
+    private void Start() => _gameManager = GameManager.Instance;
+    
+    private void Update() => transform.position += _bulletMovementSpeed * Time.deltaTime * -transform.up;
+    
     public void SetBulletDamage(int bulletDamage)
     {
         _bulletDamage = bulletDamage;
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnCollisionEnter2D(Collision2D collidedGameObject)
     {
-        collision.GetComponent<IDamageable>().TakeDamage(_bulletDamage);
-    }
+        IDamageable collidedGameObjectIDamageable = collidedGameObject.gameObject.GetComponent<IDamageable>();
 
-    private void OnBecameInvisible()
-    {
+        if (collidedGameObjectIDamageable != null)
+        {
+            collidedGameObjectIDamageable.TakeDamage(_bulletDamage);
+        }
+
+        _gameManager.ExplosionsEffectObjectPool.SpawnExplosionEffectFromPool(transform.position, transform.rotation, 0.3f);
+
         gameObject.SetActive(false);
     }
+
+    private void OnBecameInvisible() => gameObject.SetActive(false);
 }
