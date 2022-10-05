@@ -1,0 +1,34 @@
+{
+    "name": "PlayerInputActions",
+    "maps": [
+        {
+            "name": "Player",
+            "id": "144a205d-d21a-49a8-a553-17efd8517197",
+            "actions": [
+                {
+                    "name": "FrontalShoot",
+                    "type": "Button",
+                    "id": "77d5c266-de9d-4d1a-ac76-9b037a8bd048",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "c1eb5fc4-b291-461b-9dee-14a22eb7cad4",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "FrontalShoot",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

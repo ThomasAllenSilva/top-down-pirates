@@ -22,7 +22,7 @@ public class PlayerRotation : MonoBehaviour
 
     private void RotateShip()
     {
-        _desiredPlayerRotation += _playerRotationInputValue * _playerRotationSpeed * Time.deltaTime;
+        _desiredPlayerRotation += -1 * _playerRotationInputValue * _playerRotationSpeed * Time.deltaTime;
 
         transform.rotation = Quaternion.Euler(0f, 0f, _desiredPlayerRotation);
     }
