@@ -20,11 +20,11 @@ public class PlayerSideTripleShoot : MonoBehaviour
 
     private void ShootTripleBulletsOnLeftSide()
     {
-        Debug.Log("shooting-left");
+
     }
 
     private void ShootTripleBulletsOnRightSide()
     {
-        Debug.Log("shooting-right");
+       
     }
 }

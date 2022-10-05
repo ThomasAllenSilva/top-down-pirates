@@ -5,6 +5,7 @@ public class PlayerFrontalSingleShoot : MonoBehaviour
     [SerializeField] private Transform _playerFrontalShootPoint;
 
     private PlayerController _playerController;
+    private BulletsObjectPool pool;
 
     private void Awake() => _playerController = transform.parent.GetComponent<PlayerController>();
 
@@ -12,7 +13,9 @@ public class PlayerFrontalSingleShoot : MonoBehaviour
     
     private void ShootBullet()
     {
-        Debug.Log("frontal-shoot");
+        pool = GetComponent<BulletsObjectPool>();
+
+        pool.SpawnNormalBullet(_playerFrontalShootPoint.position, transform.parent.rotation);
     }
 
     private void OnDestroy()
