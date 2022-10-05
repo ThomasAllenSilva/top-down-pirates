@@ -21,7 +21,7 @@ public class PlayerMovement : MonoBehaviour
     
     private void MovePlayer()
     {
-        _directionPlayerShouldMove = -1 * _playerMovementSpeed * Time.fixedDeltaTime * _playerMovementInputValue * transform.up;
+        _directionPlayerShouldMove = _playerMovementSpeed * Time.fixedDeltaTime * _playerMovementInputValue * -transform.up;
 
         _playerController.MovePlayerToDirection(_directionPlayerShouldMove);
     }

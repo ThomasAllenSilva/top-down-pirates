@@ -3,8 +3,7 @@ using UnityEngine;
 
 public class ShipHealthManager : MonoBehaviour, IDamageable
 {
-    [field : SerializeField]
-    public int ShipHealth { get; private set; }
+    [field: SerializeField] public int ShipHealth { get; private set; }
 
     public event Action OnTakeDamage;
 
@@ -27,12 +26,12 @@ public class ShipHealthManager : MonoBehaviour, IDamageable
     {
         if (Input.GetKeyDown(KeyCode.F))
         {
-            TakeDamage(6);
+            TakeDamage(0);
         }
     }
 
     private void Die()
     {
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 }
