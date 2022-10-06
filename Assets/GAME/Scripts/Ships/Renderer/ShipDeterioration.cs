@@ -8,7 +8,7 @@ public class ShipDeterioration : MonoBehaviour
 
     private ShipHealthManager _shipHealthManager;
 
-    private int curretnSprite;
+    private int _currentShipDeteriorationSprite;
 
     private void Awake()
     {
@@ -18,20 +18,18 @@ public class ShipDeterioration : MonoBehaviour
     }
 
     private void Start() => _shipHealthManager.OnTakeDamage += CheckIfCanDeteriorateShip;
-    
 
     private void CheckIfCanDeteriorateShip()
     {
-        if (_shipHealthManager.ShipHealth % 2 == 0)
+        if (_shipHealthManager.CurrentShipHealth % 2 == 0)
         {
             DeteriorateShip();
         }
-        
     }
 
     private void DeteriorateShip()
     {
-        _shipSpriteRenderer.sprite = _shipDeteriorationStagesSprites[curretnSprite];
-        curretnSprite++;
+        _shipSpriteRenderer.sprite = _shipDeteriorationStagesSprites[_currentShipDeteriorationSprite];
+        _currentShipDeteriorationSprite++;
     }
 }

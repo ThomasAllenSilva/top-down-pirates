@@ -36,11 +36,8 @@ public class PlayerFrontalSingleShoot : MonoBehaviour
         _playerCanShoot = true;
     }
 
-    private void OnDestroy()
+    private void OnDisable()
     {
-        if (_playerController != null)
-        {
-            _playerController.PlayerInputs.OnPlayerPressedShootButton -= ShootBullet;
-        }
+        _playerController.PlayerInputs.OnPlayerPressedShootButton -= ShootBullet;
     }
 }

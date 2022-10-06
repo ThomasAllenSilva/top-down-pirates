@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,7 +7,7 @@ public class ExplosionsEffectObjectPool : MonoBehaviour
 
     [SerializeField] private GameObject _explosionEffectPrefab;
 
-    private Dictionary<string, Queue<ExplosionEffect>> _explosionsDictionary = new Dictionary<string, Queue<ExplosionEffect>>();
+    private Dictionary<string, Queue<ExplosionEffect>> _explosionsEffectDictionary = new Dictionary<string, Queue<ExplosionEffect>>();
 
     private const string ExplosionsDictionaryTagName = "ExplosionEffect";
 
@@ -27,12 +26,12 @@ public class ExplosionsEffectObjectPool : MonoBehaviour
             explosionsEffectObjectsQueue.Enqueue(explosionEffect);
         }
 
-        _explosionsDictionary.Add(ExplosionsDictionaryTagName, explosionsEffectObjectsQueue);
+        _explosionsEffectDictionary.Add(ExplosionsDictionaryTagName, explosionsEffectObjectsQueue);
     }
 
     public void SpawnExplosionEffectFromPool(Vector3 positionToSpawn, Quaternion rotationToSpawn, float explosionScale)
     {
-        ExplosionEffect explosionEffectSpawned = _explosionsDictionary[ExplosionsDictionaryTagName].Dequeue();
+        ExplosionEffect explosionEffectSpawned = _explosionsEffectDictionary[ExplosionsDictionaryTagName].Dequeue();
 
         explosionEffectSpawned.SetExplosionEffectScale(explosionScale);
 
@@ -40,6 +39,6 @@ public class ExplosionsEffectObjectPool : MonoBehaviour
 
         explosionEffectSpawned.transform.SetPositionAndRotation(positionToSpawn, rotationToSpawn);
 
-        _explosionsDictionary[ExplosionsDictionaryTagName].Enqueue(explosionEffectSpawned);
+        _explosionsEffectDictionary[ExplosionsDictionaryTagName].Enqueue(explosionEffectSpawned);
     }
 }

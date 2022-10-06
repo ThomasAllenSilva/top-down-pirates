@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviour
 
     public ExplosionsEffectObjectPool ExplosionsEffectObjectPool { get; private set; }
 
+    public ShipDeathAnimationEffectObjectPool ShipDeathAnimationEffectObjectPool { get; private set; }
+
     private void Awake()
     {
         if(Instance == null)
@@ -23,5 +25,7 @@ public class GameManager : MonoBehaviour
         BulletsObjectPool = GetComponentInChildren<BulletsObjectPool>();
 
         ExplosionsEffectObjectPool = GetComponentInChildren<ExplosionsEffectObjectPool>();
+
+        ShipDeathAnimationEffectObjectPool = GetComponentInChildren<ShipDeathAnimationEffectObjectPool>();
     }
 }

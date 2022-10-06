@@ -4,6 +4,8 @@ public class ExplosionEffect : MonoBehaviour
 {
     private Animator _explosionAnimator;
 
+    private const string ExplosionEffectAnimationName = "ExplosionEffect";
+
     private void Awake() => _explosionAnimator = GetComponent<Animator>();
 
     public void SetExplosionEffectScale(float explosionEffectScale)
@@ -18,6 +20,6 @@ public class ExplosionEffect : MonoBehaviour
 
     private void OnEnable()
     {
-        _explosionAnimator.Play("ExplosionEffect");
+        _explosionAnimator.Play(ExplosionEffectAnimationName);
     }
 }
