@@ -1,22 +1,22 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(PlayerInputs))]
 
 public class PlayerController : MonoBehaviour
 {
-    private Rigidbody2D PlayerRigidbody;
+    private Rigidbody PlayerRigidbody;
 
     public PlayerInputs PlayerInputs { get; private set; }
 
     private void Awake()
     {
         PlayerInputs = GetComponent<PlayerInputs>();
-        PlayerRigidbody = GetComponent<Rigidbody2D>();
+        PlayerRigidbody = GetComponent<Rigidbody>();
     }
 
-    public void MovePlayerToDirection(Vector2 directionToMove)
+    public void MovePlayerToDirection(Vector3 directionToMove)
     {
-        PlayerRigidbody.velocity = directionToMove;
+        PlayerRigidbody.velocity = new Vector3(directionToMove.x, 0f, directionToMove.z);
     }
 }

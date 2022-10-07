@@ -41,3 +41,21 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Sea
+    uniqueID: 2194197319
+    locked: 0
+  - name: Environment
+    uniqueID: 3540205389
+    locked: 0
+  - name: Enemies
+    uniqueID: 3063622197
+    locked: 0
+  - name: Player
+    uniqueID: 3772685157
+    locked: 0
+  - name: Effects
+    uniqueID: 1376728269
+    locked: 0
+  - name: UI
+    uniqueID: 3267412401
+    locked: 0

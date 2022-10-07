@@ -8,11 +8,6 @@ public class ExplosionEffect : MonoBehaviour
 
     private void Awake() => _explosionAnimator = GetComponent<Animator>();
 
-    public void SetExplosionEffectScale(float explosionEffectScale)
-    {
-        transform.localScale = Vector3.one * explosionEffectScale;
-    }
-
     public void DisableThisExplosionEffect()
     {
         gameObject.SetActive(false);

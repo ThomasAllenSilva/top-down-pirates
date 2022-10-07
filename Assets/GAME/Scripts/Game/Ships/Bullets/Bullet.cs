@@ -18,7 +18,7 @@ public class Bullet : MonoBehaviour
         _bulletDamage = bulletDamage;
     }
 
-    private void OnCollisionEnter2D(Collision2D collidedGameObject)
+    private void OnCollisionEnter(Collision collidedGameObject)
     {
         IDamageable collidedGameObjectIDamageable = collidedGameObject.gameObject.GetComponent<IDamageable>();
 
@@ -27,7 +27,7 @@ public class Bullet : MonoBehaviour
             collidedGameObjectIDamageable.TakeDamage(_bulletDamage);
         }
 
-        _gameManager.ExplosionsEffectObjectPool.SpawnExplosionEffectFromPool(transform.position, transform.rotation, 0.3f);
+        _gameManager.ExplosionsEffectObjectPool.SpawnExplosionEffectFromPool(transform.position, transform.rotation);
 
         gameObject.SetActive(false);
     }

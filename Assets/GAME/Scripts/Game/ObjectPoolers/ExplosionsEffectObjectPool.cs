@@ -29,11 +29,9 @@ public class ExplosionsEffectObjectPool : MonoBehaviour
         _explosionsEffectDictionary.Add(ExplosionsDictionaryTagName, explosionsEffectObjectsQueue);
     }
 
-    public void SpawnExplosionEffectFromPool(Vector3 positionToSpawn, Quaternion rotationToSpawn, float explosionScale)
+    public void SpawnExplosionEffectFromPool(Vector3 positionToSpawn, Quaternion rotationToSpawn)
     {
         ExplosionEffect explosionEffectSpawned = _explosionsEffectDictionary[ExplosionsDictionaryTagName].Dequeue();
-
-        explosionEffectSpawned.SetExplosionEffectScale(explosionScale);
 
         explosionEffectSpawned.gameObject.SetActive(true);
 

@@ -9,7 +9,7 @@ public class PlayerMovement : MonoBehaviour
 
     private float _playerMovementInputValue;
 
-    private Vector2 _directionPlayerShouldMove;
+    private Vector3 _directionPlayerShouldMove;
 
     private PlayerController _playerController;
 
