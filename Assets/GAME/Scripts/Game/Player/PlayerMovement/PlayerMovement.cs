@@ -1,6 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(PlayerController))]
+[RequireComponent(typeof(Rigidbody))]
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -13,7 +14,13 @@ public class PlayerMovement : MonoBehaviour
 
     private PlayerController _playerController;
 
-    private void Awake() => _playerController = GetComponent<PlayerController>();
+    private Rigidbody _playerRigidbody;
+
+    private void Awake()
+    {
+        _playerController = GetComponent<PlayerController>();
+        _playerRigidbody = GetComponent<Rigidbody>();
+    }
 
     private void Update() => _playerMovementInputValue = _playerController.PlayerInputs.GetPlayerMovementValue();  
     
@@ -23,6 +30,11 @@ public class PlayerMovement : MonoBehaviour
     {
         _directionPlayerShouldMove = _playerMovementSpeed * Time.fixedDeltaTime * _playerMovementInputValue * -transform.up;
 
-        _playerController.MovePlayerToDirection(_directionPlayerShouldMove);
+        MovePlayerToDirection(_directionPlayerShouldMove);
+    }
+
+    public void MovePlayerToDirection(Vector3 directionToMove)
+    {
+        _playerRigidbody.velocity = new Vector3(directionToMove.x, 0f, directionToMove.z);
     }
 }

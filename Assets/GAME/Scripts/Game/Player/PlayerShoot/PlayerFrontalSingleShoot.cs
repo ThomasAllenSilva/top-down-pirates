@@ -23,7 +23,7 @@ public class PlayerFrontalSingleShoot : MonoBehaviour
     {   
         if (_playerCanShoot)
         {
-            GameManager.Instance.BulletsObjectPool.SpawnBulletFromPool(_playerFrontalShootPoint.position, transform.parent.rotation, _playerShootDamage);
+            GameManager.Instance.BulletsObjectPool.SpawnBulletFromPool(_playerFrontalShootPoint.position, transform.parent.rotation, _playerShootDamage, gameObject.layer);
             _playerCanShoot = false;
             SetPlayerCanShootToTrue();
         }

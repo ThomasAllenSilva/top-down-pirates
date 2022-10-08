@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1940753697837327209}
   - component: {fileID: 1940753697837327211}
   - component: {fileID: 4642284857590634562}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: CannonBall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -110,5 +110,5 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.1, y: 0.1, z: 0.2}
+  m_Size: {x: 0.1, y: 0.1, z: 0.5}
   m_Center: {x: 0, y: 0, z: 0}

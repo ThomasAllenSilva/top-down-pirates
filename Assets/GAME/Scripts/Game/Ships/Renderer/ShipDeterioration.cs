@@ -12,7 +12,7 @@ public class ShipDeterioration : MonoBehaviour
 
     private void Awake()
     {
-        _shipHealthManager = transform.parent.GetComponent<ShipHealthManager>();
+        _shipHealthManager = transform.parent.GetComponentInChildren<ShipHealthManager>();
 
         _shipSpriteRenderer = GetComponent<SpriteRenderer>();
     }

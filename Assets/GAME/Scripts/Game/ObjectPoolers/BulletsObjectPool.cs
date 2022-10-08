@@ -28,15 +28,17 @@ public class BulletsObjectPool : MonoBehaviour
         _bulletsDictionary.Add(BulletDictionaryTagName, bulletsObjectsQueue);
     }
 
-    public void SpawnBulletFromPool(Vector3 positionToSpawn, Quaternion rotationToSpawn, int bulletDamage)
+    public void SpawnBulletFromPool(Vector3 positionToSpawn, Quaternion rotationToSpawn, int bulletDamage, int bulletLayer)
     {
         Bullet bulletSpawned = _bulletsDictionary[BulletDictionaryTagName].Dequeue();
 
-        bulletSpawned.gameObject.SetActive(true);
+        bulletSpawned.gameObject.layer = bulletLayer;
 
         bulletSpawned.transform.SetPositionAndRotation(positionToSpawn, rotationToSpawn);
 
         bulletSpawned.SetBulletDamage(bulletDamage);
+
+        bulletSpawned.gameObject.SetActive(true);
 
         _bulletsDictionary[BulletDictionaryTagName].Enqueue(bulletSpawned);
     }

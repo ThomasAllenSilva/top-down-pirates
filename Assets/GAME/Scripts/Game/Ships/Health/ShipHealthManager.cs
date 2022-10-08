@@ -3,20 +3,21 @@ using UnityEngine;
 
 public class ShipHealthManager : MonoBehaviour, IDamageable
 {
-    public event Action OnTakeDamage;
-
     [field: SerializeField] public int ShipMaxHealth { get; private set; }
 
     public int CurrentShipHealth { get; private set; }
+
+    public event Action OnTakeDamage;
 
     private void Awake() => CurrentShipHealth = ShipMaxHealth;
 
     public void TakeDamage(int amountOfDamage)
     {
         CurrentShipHealth -= amountOfDamage;
-       
+        Debug.Log(CurrentShipHealth);
         if (CurrentShipHealth <= 0)
         {
+           
             Die();
         }
 
@@ -28,7 +29,7 @@ public class ShipHealthManager : MonoBehaviour, IDamageable
 
     private void Die()
     {
-        GameManager.Instance.ShipDeathAnimationEffectObjectPool.SpawnDeathAnimationEffectFromPool(transform.position, Quaternion.Euler(90f, transform.rotation.y, 0f));
-        gameObject.SetActive(false);
+        GameManager.Instance.ShipDeathAnimationEffectObjectPool.SpawnDeathAnimationEffectFromPool(transform.position, transform.rotation);
+        transform.parent.gameObject.SetActive(false);
     }
 }
