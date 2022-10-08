@@ -14,7 +14,7 @@ public class ShipHealthManager : MonoBehaviour, IDamageable
     public void TakeDamage(int amountOfDamage)
     {
         CurrentShipHealth -= amountOfDamage;
-        Debug.Log(CurrentShipHealth);
+
         if (CurrentShipHealth <= 0)
         {
            
