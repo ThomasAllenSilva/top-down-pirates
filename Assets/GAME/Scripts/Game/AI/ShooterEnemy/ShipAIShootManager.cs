@@ -7,16 +7,29 @@ public class ShipAIShootManager : MonoBehaviour
 
     [SerializeField] private float _shootDelay;
 
+    [SerializeField] private Transform _shootSpawnPoint;
+
+    [SerializeField] private int _bulletDamageFromThisEnemy;
+    
     private bool canShoot;
+
+    private bool shootCoroutineIsAlreadyRunnning;
 
     private void Awake() => _shipController = transform.parent.GetComponent<EnemyShipController>();
 
     private IEnumerator Shoot()
     {
-        while (canShoot)
+        if (!shootCoroutineIsAlreadyRunnning)
         {
-            GameManager.Instance.BulletsObjectPool.SpawnBulletFromPool(transform.parent.position, transform.rotation, 1, gameObject.layer);
-            yield return new WaitForSecondsRealtime(_shootDelay);
+            shootCoroutineIsAlreadyRunnning = true;
+
+            while (canShoot)
+            {
+                GameManager.Instance.BulletsObjectPool.SpawnBulletFromPool(_shootSpawnPoint.position, transform.rotation, 1, gameObject.layer);
+                yield return new WaitForSecondsRealtime(_shootDelay);
+            }
+
+            shootCoroutineIsAlreadyRunnning = false;
         }
     }
 

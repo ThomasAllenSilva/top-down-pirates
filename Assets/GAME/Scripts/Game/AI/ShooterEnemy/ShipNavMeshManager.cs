@@ -20,24 +20,23 @@ public class ShipNavMeshManager : MonoBehaviour
   
     private void Update()
     {
-        float distance = Vector3.Distance(transform.position, _targetToFollow.position);
+        float distanceBetweenThisShipAndTarget = Vector3.Distance(transform.position, _targetToFollow.position);
 
-        if (distance < 7f)
+        if (distanceBetweenThisShipAndTarget <= 7f)
         {
-            transform.LookAt(_targetToFollow);
-
+            Debug.Log("distance");
             if (canInvokePositionCloseToPlayerAction)
             {
+                Debug.Log("invoking");
                 OnReachedPositionCloseEnoughToPlayer?.Invoke();
                 canInvokePositionCloseToPlayerAction = false;
             }
             canInvokeOnIsFarFromPlayerPlayerAction = true;
+            transform.LookAt(_targetToFollow);
         }
 
         else
         {
-            _shipAI.speed = 1f;
-         
             _shipAI.SetDestination(_targetToFollow.position);
 
             if (canInvokeOnIsFarFromPlayerPlayerAction)
