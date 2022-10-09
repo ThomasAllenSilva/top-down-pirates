@@ -20,7 +20,7 @@ public class PlayerFrontalSingleShoot : MonoBehaviour
     private void Start() => _playerController.PlayerInputs.OnPlayerPressedShootButton += ShootBullet;
     
     private void ShootBullet()
-    {   
+    {
         if (_playerCanShoot)
         {
             GameManager.Instance.BulletsObjectPool.SpawnBulletFromPool(_playerFrontalShootPoint.position, transform.parent.rotation, _playerShootDamage, gameObject.layer);

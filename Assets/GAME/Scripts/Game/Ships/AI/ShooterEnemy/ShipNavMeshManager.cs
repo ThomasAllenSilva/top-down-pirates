@@ -24,10 +24,8 @@ public class ShipNavMeshManager : MonoBehaviour
 
         if (distanceBetweenThisShipAndTarget <= 7f)
         {
-            Debug.Log("distance");
             if (canInvokePositionCloseToPlayerAction)
             {
-                Debug.Log("invoking");
                 OnReachedPositionCloseEnoughToPlayer?.Invoke();
                 canInvokePositionCloseToPlayerAction = false;
             }

@@ -7,36 +7,30 @@ public class ExplosionsEffectObjectPool : MonoBehaviour
 
     [SerializeField] private GameObject _explosionEffectPrefab;
 
-    private Dictionary<string, Queue<ExplosionEffect>> _explosionsEffectDictionary = new Dictionary<string, Queue<ExplosionEffect>>();
-
-    private const string ExplosionsDictionaryTagName = "ExplosionEffect";
+    private Queue<ExplosionEffect> _explosionsEffectDictionary = new Queue<ExplosionEffect>();
 
     private void Start() => InitializeExplosionsObjectPool();
 
     private void InitializeExplosionsObjectPool()
     {
-        Queue<ExplosionEffect> explosionsEffectObjectsQueue = new Queue<ExplosionEffect>();
-
         for (int i = 0; i < _explosionsEffectPoolSize; i++)
         {
             ExplosionEffect explosionEffect = Instantiate(_explosionEffectPrefab.GetComponent<ExplosionEffect>());
 
             explosionEffect.gameObject.SetActive(false);
 
-            explosionsEffectObjectsQueue.Enqueue(explosionEffect);
+            _explosionsEffectDictionary.Enqueue(explosionEffect);
         }
-
-        _explosionsEffectDictionary.Add(ExplosionsDictionaryTagName, explosionsEffectObjectsQueue);
     }
 
     public void SpawnExplosionEffectFromPool(Vector3 positionToSpawn, Quaternion rotationToSpawn)
     {
-        ExplosionEffect explosionEffectSpawned = _explosionsEffectDictionary[ExplosionsDictionaryTagName].Dequeue();
+        ExplosionEffect explosionEffectSpawned = _explosionsEffectDictionary.Dequeue();
 
         explosionEffectSpawned.gameObject.SetActive(true);
 
         explosionEffectSpawned.transform.SetPositionAndRotation(positionToSpawn, rotationToSpawn);
 
-        _explosionsEffectDictionary[ExplosionsDictionaryTagName].Enqueue(explosionEffectSpawned);
+        _explosionsEffectDictionary.Enqueue(explosionEffectSpawned);
     }
 }

@@ -7,30 +7,25 @@ public class BulletsObjectPool : MonoBehaviour
 
     [SerializeField] private GameObject _bulletPrefab;
 
-    private Dictionary<string, Queue<Bullet>> _bulletsDictionary = new Dictionary<string, Queue<Bullet>>();
+    private Queue<Bullet> _bulletsDictionary = new Queue<Bullet>();
 
-    private const string BulletDictionaryTagName = "Bullet";
-
-    private void Start() => InitializeBulletObjectsPool();
+    private void Start() => InitializeBulletsObjectPool();
     
-    private void InitializeBulletObjectsPool()
+    private void InitializeBulletsObjectPool()
     {
-        Queue<Bullet> bulletsObjectsQueue = new Queue<Bullet>();
-
         for (int i = 0; i < _bulletsPoolSize; i++)
         {
             Bullet bullet = Instantiate(_bulletPrefab.GetComponent<Bullet>());
+
             bullet.gameObject.SetActive(false);
 
-            bulletsObjectsQueue.Enqueue(bullet);
+            _bulletsDictionary.Enqueue(bullet);
         }
-
-        _bulletsDictionary.Add(BulletDictionaryTagName, bulletsObjectsQueue);
     }
 
     public void SpawnBulletFromPool(Vector3 positionToSpawn, Quaternion rotationToSpawn, int bulletDamage, int bulletLayer)
     {
-        Bullet bulletSpawned = _bulletsDictionary[BulletDictionaryTagName].Dequeue();
+        Bullet bulletSpawned = _bulletsDictionary.Dequeue();
 
         bulletSpawned.gameObject.layer = bulletLayer;
 
@@ -40,6 +35,6 @@ public class BulletsObjectPool : MonoBehaviour
 
         bulletSpawned.gameObject.SetActive(true);
 
-        _bulletsDictionary[BulletDictionaryTagName].Enqueue(bulletSpawned);
+        _bulletsDictionary.Enqueue(bulletSpawned);
     }
 }

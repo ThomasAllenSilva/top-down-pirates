@@ -29,7 +29,7 @@ public class ShipHealthManager : MonoBehaviour, IDamageable
 
     private void Die()
     {
-        GameManager.Instance.ShipDeathAnimationEffectObjectPool.SpawnDeathAnimationEffectFromPool(transform.position, transform.rotation);
+        GameManager.Instance.ShipDeathAnimationEffectObjectPool.SpawnDeathAnimationEffectFromPool(transform.position, Quaternion.Euler(90f, transform.parent.eulerAngles.y, 0f));
         transform.parent.gameObject.SetActive(false);
     }
 }
