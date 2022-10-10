@@ -2,9 +2,9 @@ using System;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class ShipNavMeshManager : MonoBehaviour
+public class ShooterEnemyNavMeshManager : MonoBehaviour
 {
-    [SerializeField] private Transform _targetToFollow;
+    private static Transform _targetToFollow;
 
     private NavMeshAgent _shipAI;
 
@@ -16,7 +16,12 @@ public class ShipNavMeshManager : MonoBehaviour
 
     private bool canInvokeOnIsFarFromPlayerPlayerAction;
 
-    void Start() => _shipAI = GetComponent<NavMeshAgent>();
+    private void Awake() => _shipAI = GetComponent<NavMeshAgent>();
+
+    private void Start()
+    {
+        _targetToFollow = FindObjectOfType<PlayerController>().gameObject.transform;
+    }
   
     private void Update()
     {

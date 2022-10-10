@@ -17,6 +17,12 @@ public class ShipAIShootManager : MonoBehaviour
 
     private void Awake() => _shipController = transform.parent.GetComponent<EnemyShipController>();
 
+    private void Start()
+    {
+        _shipController.ShipNavMeshManager.OnReachedPositionCloseEnoughToPlayer += SetCanShootBoolToTrue;
+        _shipController.ShipNavMeshManager.OnIsFarFromPlayerPlayer += SetCanShootBoolToFalse;
+    }
+
     private IEnumerator Shoot()
     {
         if (!shootCoroutineIsAlreadyRunnning)
@@ -33,11 +39,7 @@ public class ShipAIShootManager : MonoBehaviour
         }
     }
 
-    private void Start()
-    {
-        _shipController.ShipNavMeshManager.OnReachedPositionCloseEnoughToPlayer += SetCanShootBoolToTrue;
-        _shipController.ShipNavMeshManager.OnIsFarFromPlayerPlayer += SetCanShootBoolToFalse;
-    }
+  
 
     private void SetCanShootBoolToTrue()
     {
@@ -52,7 +54,16 @@ public class ShipAIShootManager : MonoBehaviour
 
     private void OnDisable()
     {
-        _shipController.ShipNavMeshManager.OnReachedPositionCloseEnoughToPlayer -= SetCanShootBoolToTrue;
-        _shipController.ShipNavMeshManager.OnIsFarFromPlayerPlayer -= SetCanShootBoolToFalse;
+        shootCoroutineIsAlreadyRunnning = false;
     }
+
+    private void OnDestroy()
+    {
+        if (_shipController != null)
+        {
+            _shipController.ShipNavMeshManager.OnReachedPositionCloseEnoughToPlayer -= SetCanShootBoolToTrue;
+            _shipController.ShipNavMeshManager.OnIsFarFromPlayerPlayer -= SetCanShootBoolToFalse;
+        }
+    }
+
 }

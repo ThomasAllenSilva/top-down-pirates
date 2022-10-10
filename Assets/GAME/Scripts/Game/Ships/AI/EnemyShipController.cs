@@ -1,8 +1,14 @@
+using System;
 using UnityEngine;
 
 public class EnemyShipController : MonoBehaviour
 {
-    public ShipNavMeshManager ShipNavMeshManager { get; private set; }
+    public ShooterEnemyNavMeshManager ShipNavMeshManager { get; private set; }
 
-    private void Awake() => ShipNavMeshManager = GetComponent<ShipNavMeshManager>();
+    private void Awake() => ShipNavMeshManager = GetComponent<ShooterEnemyNavMeshManager>();
+
+    private void OnDisable()
+    {
+        GameManager.Instance.EnemiesSpawner.ReduceAmountOfActiveEnemiesShipsCounter();
+    }
 }

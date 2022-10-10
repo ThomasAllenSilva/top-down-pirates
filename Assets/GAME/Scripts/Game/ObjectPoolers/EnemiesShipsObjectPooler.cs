@@ -32,6 +32,12 @@ public class EnemiesShipsObjectPooler : MonoBehaviour
             case TypesOfEnemiesShips.ChaserEnemy:
                 typeOfEnemyShipToSpawn = _chaserEnemyPrefab;
                 break;
+
+            default:
+
+                Debug.Log(typeOfEnemy);
+                break;
+
         }
 
         for (int i = 0; i < _enemiesPoolSize * 0.5f; i++)

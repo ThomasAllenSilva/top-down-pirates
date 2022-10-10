@@ -24,8 +24,21 @@ public class ShipHealthBar : MonoBehaviour
         _shipHealthBarImage.fillAmount = healthFillPercent;
     }
 
-    private void OnDisable()
+    private void ResetHealthBarUIImageFillAmount()
     {
-        _shipHealthManager.OnTakeDamage -= FillOutShipHealthBarImage;
+        _shipHealthBarImage.fillAmount = 1f;
+    }
+
+    private void OnEnable()
+    {
+        ResetHealthBarUIImageFillAmount();
+    }
+
+    private void OnDestroy()
+    {
+        if (_shipHealthManager != null)
+        {
+            _shipHealthManager.OnTakeDamage -= FillOutShipHealthBarImage;
+        }
     }
 }
