@@ -9,12 +9,14 @@ public class EnemiesSpawner : MonoBehaviour
 
     [SerializeField] private float _delayToSpawnEnemies;
 
-    [Min(0.5f)]
-    [SerializeField] private float _initialDelayToStartSpawningEnemies = 0.5f;
+    [Min(2f)]
+    [SerializeField] private float _initialDelayToStartSpawningEnemies =2f;
 
     private int _currentAmountOfActiveEnemiesShips = 0;
 
     private const int _maxAmountOfActiveEnemiesShipsOnScreen = 7;
+
+    private GameManager _gameManager;
 
     private void Awake()
     {
@@ -24,6 +26,8 @@ public class EnemiesSpawner : MonoBehaviour
         {
             _spawnersRenderer[i] = _positionsToSpawnShips[i].GetComponent<SpriteRenderer>();
         }
+
+        _gameManager = GameManager.Instance;
     }
 
     private void Start() => StartCoroutine(SpawnEnemies());
@@ -34,17 +38,22 @@ public class EnemiesSpawner : MonoBehaviour
 
         _currentAmountOfActiveEnemiesShips = 0;
 
-        while (true)
+        while (_gameManager.GameIsRunning)
         {
             if (CheckIfCanSpawnNewEnemies())
-            {
+            {   
                 for (int i = 0; i < _positionsToSpawnShips.Length - 1; i++)
                 {
-                    if (CheckIfCanSpawnNewEnemies() && !CheckIfShipSpawnerIsVisible(spawnerIndex: i))
+                    int randomPositionToSpawn = Random.Range(0, _positionsToSpawnShips.Length - 1);
+
+                    if (CheckIfCanSpawnNewEnemies() && !CheckIfShipSpawnerIsVisible(spawnerIndex: randomPositionToSpawn))
                     {
+                        
                         TypesOfEnemiesShips randomEnemy = (TypesOfEnemiesShips)Random.Range(0, 2);
-                        GameManager.Instance.EnemiesShipsObjectPooler.SpawnEnemyShipFromPool(_positionsToSpawnShips[i].position, randomEnemy);    
-                        _currentAmountOfActiveEnemiesShips++;
+
+                        bool spawnedEnemyShipSuccessfully = _gameManager.EnemiesShipsObjectPooler.SpawnEnemyShipFromPool(_positionsToSpawnShips[randomPositionToSpawn].position, randomEnemy); 
+
+                        if(spawnedEnemyShipSuccessfully) _currentAmountOfActiveEnemiesShips++;
                     }
                 }
             }
@@ -55,33 +64,16 @@ public class EnemiesSpawner : MonoBehaviour
 
     private bool CheckIfCanSpawnNewEnemies()
     {
-        if (_currentAmountOfActiveEnemiesShips <= _maxAmountOfActiveEnemiesShipsOnScreen)
-        {
-            return true;
-        }
-
-        else
-        {
-            return false;
-        }
+        return _currentAmountOfActiveEnemiesShips < _maxAmountOfActiveEnemiesShipsOnScreen;
     }
 
     private bool CheckIfShipSpawnerIsVisible(int spawnerIndex)
     {
-        if (_spawnersRenderer[spawnerIndex].isVisible)
-        {
-            return true;
-        }
-
-        else
-        {
-            return false;
-        }
+        return _spawnersRenderer[spawnerIndex].isVisible;
     }
 
     public void ReduceAmountOfActiveEnemiesShipsCounter()
-    {
-        if(_currentAmountOfActiveEnemiesShips > 0)
-        _currentAmountOfActiveEnemiesShips--;
+    {   
+        if (_currentAmountOfActiveEnemiesShips > 0) _currentAmountOfActiveEnemiesShips--;
     }
 }

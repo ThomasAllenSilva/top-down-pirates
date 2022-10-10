@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class EnemiesShipsObjectPooler : MonoBehaviour
 {
-    [SerializeField] private int _enemiesPoolSize = 10;
+    [SerializeField] private int _enemiesPoolSize = 50;
 
     [SerializeField] private GameObject _shooterEnemyPrefab;
 
@@ -11,7 +11,7 @@ public class EnemiesShipsObjectPooler : MonoBehaviour
 
     private Dictionary<TypesOfEnemiesShips, Queue<GameObject>> _enemiesDictionary = new Dictionary<TypesOfEnemiesShips, Queue<GameObject>>();
 
-    private void Start()
+    private void Awake()
     {
         InitializeEnemyObjectPool(TypesOfEnemiesShips.ShooterEnemy);
         InitializeEnemyObjectPool(TypesOfEnemiesShips.ChaserEnemy);
@@ -32,12 +32,6 @@ public class EnemiesShipsObjectPooler : MonoBehaviour
             case TypesOfEnemiesShips.ChaserEnemy:
                 typeOfEnemyShipToSpawn = _chaserEnemyPrefab;
                 break;
-
-            default:
-
-                Debug.Log(typeOfEnemy);
-                break;
-
         }
 
         for (int i = 0; i < _enemiesPoolSize * 0.5f; i++)
@@ -52,14 +46,21 @@ public class EnemiesShipsObjectPooler : MonoBehaviour
         _enemiesDictionary.Add(typeOfEnemy, enemyShipsQueue);
     }
 
-    public void SpawnEnemyShipFromPool(Vector3 positionToSpawn, TypesOfEnemiesShips typeOfEnemyToSpawn)
+    public bool SpawnEnemyShipFromPool(Vector3 positionToSpawn, TypesOfEnemiesShips typeOfEnemyToSpawn)
     {
-        GameObject enemyShipSpawned = _enemiesDictionary[typeOfEnemyToSpawn].Dequeue();
-
-        enemyShipSpawned.transform.position = positionToSpawn;
-
-        enemyShipSpawned.SetActive(true);
+        _enemiesDictionary[typeOfEnemyToSpawn].TryDequeue(out GameObject enemyShipSpawned);
 
         _enemiesDictionary[typeOfEnemyToSpawn].Enqueue(enemyShipSpawned);
+
+        if (!enemyShipSpawned.activeInHierarchy)
+        {
+            enemyShipSpawned.transform.position = positionToSpawn;
+
+            enemyShipSpawned.SetActive(true);
+
+            return true;
+        }
+
+        else return false;
     }
 }

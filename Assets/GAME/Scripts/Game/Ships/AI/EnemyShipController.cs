@@ -10,5 +10,6 @@ public class EnemyShipController : MonoBehaviour
     private void OnDisable()
     {
         GameManager.Instance.EnemiesSpawner.ReduceAmountOfActiveEnemiesShipsCounter();
+        GameManager.Instance.PlayerPointsManager.IncreasePlayerPoints();
     }
 }
