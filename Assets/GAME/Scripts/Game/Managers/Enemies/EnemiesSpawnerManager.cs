@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using System.Collections;
 using UnityEngine;
 
@@ -27,11 +28,11 @@ public class EnemiesSpawnerManager : MonoBehaviour
         _gameManager = GameManager.Instance;
     }
 
-    private void Start() => StartCoroutine(SpawnEnemies());
+    private void Start() => SpawnEnemies();
 
-    private IEnumerator SpawnEnemies()
+    private async void SpawnEnemies()
     {
-        yield return new WaitForSecondsRealtime(_delayToSpawnEnemies);
+        await Task.Delay(_delayToSpawnEnemies);
 
         _currentAmountOfActiveEnemiesShips = 0;
 
@@ -54,7 +55,7 @@ public class EnemiesSpawnerManager : MonoBehaviour
                 }
             }
 
-            yield return new WaitForSecondsRealtime(_delayToSpawnEnemies);
+            await Task.Delay(_delayToSpawnEnemies);
         }
     }
 
