@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GameSessionManager : MonoBehaviour
 {
-    private int _gameSessionTime = 5;
+    private int _gameSessionTime = 60;
 
     public event Action OnGameSessionEnds;
 

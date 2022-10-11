@@ -29,7 +29,6 @@ public class PlayerFrontalSingleShoot : MonoBehaviour
         }
     }
 
-    //TODO change this method name
     private async void SetPlayerCanShootToTrue()
     {
         await Task.Delay(_playerShootDelayInMiliSec);
