@@ -9,7 +9,7 @@ public class GameOptions : MonoBehaviour
 
     private int _gameSessionTime = 1;
 
-    private float _enemySpawnTime = 1;
+    private int _enemySpawnTime = 1;
 
     private static GameOptions Instance;
 
@@ -51,13 +51,13 @@ public class GameOptions : MonoBehaviour
 
     public void IncreaseEnemySpawnTime()
     {
-        if (_enemySpawnTime < 5) _enemySpawnTime += 0.5f;
+        if (_enemySpawnTime < 5) _enemySpawnTime += 1;
         UpdateEnemySpawnTimeText();
     }
 
     public void DecreaseEnemySpawnTime()
     {
-        if(_enemySpawnTime > 1) _enemySpawnTime -= 0.5f;
+        if(_enemySpawnTime > 1) _enemySpawnTime -= 1;
         UpdateEnemySpawnTimeText();
     }
 

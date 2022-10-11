@@ -60,7 +60,7 @@ public class GameManager : MonoBehaviour
         GameIsRunning = false;
     }
 
-    public void ApplyGameOptions(int gameSessionTime, float enemiesSpawnTime)
+    public void ApplyGameOptions(int gameSessionTime, int enemiesSpawnTime)
     {
         GameSessionManager.SetGameSessionTime(gameSessionTime);
         EnemiesSpawner.SetDelayToSpawnEnemies(enemiesSpawnTime);

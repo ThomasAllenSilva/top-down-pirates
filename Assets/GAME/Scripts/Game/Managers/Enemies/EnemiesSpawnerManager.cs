@@ -10,7 +10,7 @@ public class EnemiesSpawnerManager : MonoBehaviour
 
     private SpriteRenderer[] _spawnersRenderers;
 
-    private float _delayToSpawnEnemies;
+    private int _delayToSpawnEnemies;
 
     private int _currentAmountOfActiveEnemiesShips = 0;
 
@@ -74,8 +74,8 @@ public class EnemiesSpawnerManager : MonoBehaviour
         if (_currentAmountOfActiveEnemiesShips > 0) _currentAmountOfActiveEnemiesShips--;
     }
 
-    public void SetDelayToSpawnEnemies(float delay)
+    public void SetDelayToSpawnEnemies(int delay)
     {
-        _delayToSpawnEnemies = delay;
+        _delayToSpawnEnemies = delay * 1000;
     }
 }
