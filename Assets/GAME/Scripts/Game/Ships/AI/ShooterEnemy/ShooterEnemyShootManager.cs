@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class ShipAIShootManager : MonoBehaviour
+public class ShooterEnemyShootManager : MonoBehaviour
 {
     private EnemyShipController _shipController;
 
@@ -21,6 +21,7 @@ public class ShipAIShootManager : MonoBehaviour
     {
         _shipController.ShipNavMeshManager.OnReachedPositionCloseEnoughToPlayer += SetCanShootBoolToTrue;
         _shipController.ShipNavMeshManager.OnIsFarFromPlayerPlayer += SetCanShootBoolToFalse;
+        GameManager.Instance.GameSessionManager.OnGameSessionEnds += SetCanShootBoolToFalse;
     }
 
     private IEnumerator Shoot()
@@ -38,8 +39,6 @@ public class ShipAIShootManager : MonoBehaviour
             shootCoroutineIsAlreadyRunnning = false;
         }
     }
-
-  
 
     private void SetCanShootBoolToTrue()
     {
@@ -63,6 +62,11 @@ public class ShipAIShootManager : MonoBehaviour
         {
             _shipController.ShipNavMeshManager.OnReachedPositionCloseEnoughToPlayer -= SetCanShootBoolToTrue;
             _shipController.ShipNavMeshManager.OnIsFarFromPlayerPlayer -= SetCanShootBoolToFalse;
+        }
+
+        if(GameManager.Instance != null)
+        {
+            GameManager.Instance.GameSessionManager.OnGameSessionEnds -= SetCanShootBoolToFalse;
         }
     }
 

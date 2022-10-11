@@ -7,6 +7,8 @@ public class NavMeshAgentManager : MonoBehaviour
 
     protected NavMeshAgent _shipAI;
 
+    private void Awake() => _shipAI = GetComponent<NavMeshAgent>();
+
     private void Start()
     {
         if (_targetToFollow == null)
@@ -14,6 +16,4 @@ public class NavMeshAgentManager : MonoBehaviour
             _targetToFollow = FindObjectOfType<PlayerController>().gameObject.transform;
         }
     }
-
-    private void Awake() => _shipAI = GetComponent<NavMeshAgent>();
 }

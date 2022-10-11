@@ -9,10 +9,15 @@ public class AlphaTween : MonoBehaviour
 
     private void Awake() => _canvasGroup = GetComponent<CanvasGroup>();
 
-    public void PlayFadeInAnimation()
+    private void Start()
+    {
+        PlayFadeOutAnimation();
+    }
+
+    public void PlayFadeInAnimationAndLoadScene(int sceneIndexToLoad)
     {
         _canvasGroup.alpha = 0f;
-        LeanTween.alphaCanvas(_canvasGroup, 1f, _animationDuration).setIgnoreTimeScale(true);
+        LeanTween.alphaCanvas(_canvasGroup, 1f, _animationDuration).setIgnoreTimeScale(true).setOnComplete(() => ScenesManager.Instance.LoadSceneByIndex(sceneIndexToLoad));
     }
 
     public async void PlayFadeOutAnimation()

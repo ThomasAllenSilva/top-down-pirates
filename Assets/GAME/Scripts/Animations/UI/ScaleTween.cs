@@ -10,4 +10,9 @@ public class ScaleTween : MonoBehaviour
     {
         LeanTween.scale(gameObject, scaleSizeToAnimate, _animationDuration).setIgnoreTimeScale(true);
     }
+
+    public void PlayScaleOutAnimation()
+    {
+        LeanTween.scale(gameObject, Vector3.zero, _animationDuration);
+    }
 }

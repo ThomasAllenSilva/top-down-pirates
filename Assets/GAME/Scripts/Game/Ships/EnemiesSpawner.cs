@@ -7,7 +7,7 @@ public class EnemiesSpawner : MonoBehaviour
 
     private SpriteRenderer[] _spawnersRenderer;
 
-    [SerializeField] private float _delayToSpawnEnemies;
+    private float _delayToSpawnEnemies;
 
     [Min(2f)]
     [SerializeField] private float _initialDelayToStartSpawningEnemies =2f;
@@ -60,6 +60,11 @@ public class EnemiesSpawner : MonoBehaviour
 
             yield return new WaitForSecondsRealtime(_delayToSpawnEnemies);
         }
+    }
+
+    public void SetDelayToSpawnEnemies(float delay)
+    {
+        _delayToSpawnEnemies = delay;
     }
 
     private bool CheckIfCanSpawnNewEnemies()

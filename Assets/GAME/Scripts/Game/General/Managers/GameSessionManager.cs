@@ -4,11 +4,16 @@ using UnityEngine;
 
 public class GameSessionManager : MonoBehaviour
 {
-    private int _gameSessionTime = 60;
+    private int _gameSessionTime = 5;
 
     public event Action OnGameSessionEnds;
 
     public event Action OnGameSessionStarts;
+
+    private void Awake()
+    {
+        PlayerController.OnPlayerDied += InvokeGameSessionEndsAction;
+    }
 
     private void Start() => StartCoroutine(StartCountingGameSession());
     
@@ -27,6 +32,16 @@ public class GameSessionManager : MonoBehaviour
 
     public void SetGameSessionTime(int sessionTime)
     { 
-        _gameSessionTime = sessionTime;
+        _gameSessionTime = 60 * sessionTime;
+    }
+
+    private void InvokeGameSessionEndsAction()
+    {
+        OnGameSessionEnds?.Invoke();
+    }
+
+    private void OnDestroy()
+    {
+        PlayerController.OnPlayerDied -= InvokeGameSessionEndsAction;
     }
 }

@@ -20,6 +20,11 @@ public class Bullet : MonoBehaviour
 
     private void OnCollisionEnter(Collision collidedGameObject)
     {
+       
+    }
+
+    private void OnTriggerEnter(Collider collidedGameObject)
+    {
         IDamageable collidedGameObjectIDamageable = collidedGameObject.gameObject.GetComponentInChildren<IDamageable>();
 
         if (collidedGameObjectIDamageable != null)

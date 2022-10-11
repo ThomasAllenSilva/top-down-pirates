@@ -18,11 +18,15 @@ public class GameManager : MonoBehaviour
 
     public GameSessionManager GameSessionManager { get; private set; }
 
+    public CanvasManager CanvasManager { get; private set; }
+
     public bool GameIsRunning { get; private set; } = true;
 
     private void Awake()
     {
-        if(Instance == null)
+        Time.timeScale = 1;
+
+        if (Instance == null)
         {
             Instance = this;
         }
@@ -45,14 +49,23 @@ public class GameManager : MonoBehaviour
         PlayerPointsManager = GetComponentInChildren<PlayerPointsManager>();
 
         GameSessionManager = GetComponentInChildren<GameSessionManager>();
+
+        CanvasManager = GetComponentInChildren<CanvasManager>();
     }
 
+    
     private void Start() => GameSessionManager.OnGameSessionEnds += StopGame;
     
     private void StopGame()
     {
         GameIsRunning = false;
         Time.timeScale = 0;
+    }
+
+    public void ApplyPlayerGameOptions(int gameSessionTime, float enemiesSpawnTime)
+    {
+        GameSessionManager.SetGameSessionTime(gameSessionTime);
+        EnemiesSpawner.SetDelayToSpawnEnemies(enemiesSpawnTime);
     }
 
     private void OnDestroy()
