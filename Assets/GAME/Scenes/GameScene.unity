@@ -1914,8 +1914,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcd354f08fea20d4397dba4ed0286fac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gameResultsPanelTween: {fileID: 1523718425}
   <FadeCanvasTween>k__BackingField: {fileID: 1109569785}
+  _gameResultsPanelTween: {fileID: 1523718425}
 --- !u!1 &915968159
 GameObject:
   m_ObjectHideFlags: 0
@@ -7796,7 +7796,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5346d6d098ec6904592c5707847ccefa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerFrontalShootPoint: {fileID: 1546234682}
+  _playerFrontalShootSpawnPoint: {fileID: 1546234682}
   _playerShootDamage: 2
   _playerShootDelayInMiliSec: 350
 --- !u!114 &1597408027
@@ -7811,11 +7811,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a5235508c6ca7b43a1b3fc00dbeb57b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerLeftSidePoints:
+  _playerLeftSideShootSpawnPoints:
   - {fileID: 52681146}
   - {fileID: 1080507549}
   - {fileID: 856008683}
-  _playerRightSidePoints:
+  _playerRightSideShootSpawnPoints:
   - {fileID: 498994107}
   - {fileID: 2054176897}
   - {fileID: 1050830385}
@@ -9309,7 +9309,6 @@ MonoBehaviour:
   - {fileID: 2007461374}
   - {fileID: 1557659741}
   - {fileID: 2064051565}
-  _initialDelayToStartSpawningEnemies: 0.5
 --- !u!1 &1707151679
 GameObject:
   m_ObjectHideFlags: 0

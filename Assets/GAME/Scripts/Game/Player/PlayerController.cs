@@ -1,6 +1,6 @@
-using UnityEngine;
 using System;
 using System.Threading.Tasks;
+using UnityEngine;
 
 [RequireComponent(typeof(PlayerInputs))]
 

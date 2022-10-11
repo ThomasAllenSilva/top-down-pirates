@@ -53,16 +53,14 @@ public class GameManager : MonoBehaviour
         CanvasManager = GetComponentInChildren<CanvasManager>();
     }
 
-    
-    private void Start() => GameSessionManager.OnGameSessionEnds += StopGame;
+    private void Start() => GameSessionManager.OnGameSessionStopped += StopGame;
     
     private void StopGame()
     {
         GameIsRunning = false;
-        Time.timeScale = 0;
     }
 
-    public void ApplyPlayerGameOptions(int gameSessionTime, float enemiesSpawnTime)
+    public void ApplyGameOptions(int gameSessionTime, float enemiesSpawnTime)
     {
         GameSessionManager.SetGameSessionTime(gameSessionTime);
         EnemiesSpawner.SetDelayToSpawnEnemies(enemiesSpawnTime);
@@ -70,6 +68,6 @@ public class GameManager : MonoBehaviour
 
     private void OnDestroy()
     {
-        if(GameSessionManager != null) GameSessionManager.OnGameSessionEnds -= StopGame;
+        if(GameSessionManager != null) GameSessionManager.OnGameSessionStopped -= StopGame;
     }
 }

@@ -1,6 +1,8 @@
 using System.Threading.Tasks;
 using UnityEngine;
 
+[RequireComponent(typeof(CanvasGroup))]
+
 public class AlphaTween : MonoBehaviour
 {
     private CanvasGroup _canvasGroup;
@@ -9,11 +11,8 @@ public class AlphaTween : MonoBehaviour
 
     private void Awake() => _canvasGroup = GetComponent<CanvasGroup>();
 
-    private void Start()
-    {
-        PlayFadeOutAnimation();
-    }
-
+    private void Start() => PlayFadeOutAnimation();
+    
     public void PlayFadeInAnimationAndLoadScene(int sceneIndexToLoad)
     {
         _canvasGroup.alpha = 0f;

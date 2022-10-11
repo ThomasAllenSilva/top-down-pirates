@@ -1,42 +1,67 @@
 using System;
 using UnityEngine;
-using UnityEngine.AI;
 
 public class ShooterEnemyNavMeshManager : NavMeshAgentManager
 {
     public event Action OnReachedPositionCloseEnoughToPlayer;
 
-    private bool canInvokePositionCloseToPlayerAction = true;
+    private bool canInvokePositionCloseEnoughToPlayerAction = true;
 
     public event Action OnIsFarFromPlayerPlayer;
 
     private bool canInvokeOnIsFarFromPlayerPlayerAction;
 
+    private float distanceBetweenThisShipAndTarget;
+
     private void Update()
     {
-        float distanceBetweenThisShipAndTarget = Vector3.Distance(transform.position, _targetToFollow.position);
+        distanceBetweenThisShipAndTarget = Vector3.Distance(transform.position, _targetToFollow.position);
 
-        if (distanceBetweenThisShipAndTarget <= 7f)
+        if (CheckIfThisShipIsCloseEnoughToPlayer())
         {
-            if (canInvokePositionCloseToPlayerAction)
-            {
-                OnReachedPositionCloseEnoughToPlayer?.Invoke();
-                canInvokePositionCloseToPlayerAction = false;
-            }
-            canInvokeOnIsFarFromPlayerPlayerAction = true;
-            transform.LookAt(_targetToFollow);
+            InvokePositionCloseEnoughToPlayerAction();
         }
 
         else
         {
             _shipAI.SetDestination(_targetToFollow.position);
+            InvokeFarFromPlayerAction();
+        }
+    }
 
-            if (canInvokeOnIsFarFromPlayerPlayerAction)
-            {
-                OnIsFarFromPlayerPlayer?.Invoke();
-                canInvokeOnIsFarFromPlayerPlayerAction = false;
-                canInvokePositionCloseToPlayerAction = true;
-            }
+    private bool CheckIfThisShipIsCloseEnoughToPlayer()
+    {
+        return distanceBetweenThisShipAndTarget <= 7f;
+    }
+
+    private void InvokePositionCloseEnoughToPlayerAction()
+    {
+        if (canInvokePositionCloseEnoughToPlayerAction)
+        {
+            OnReachedPositionCloseEnoughToPlayer?.Invoke();
+
+            canInvokePositionCloseEnoughToPlayerAction = false;
+        }
+
+        canInvokeOnIsFarFromPlayerPlayerAction = true;
+
+        RotateThisShipToLookAtPlayer();
+    }
+
+    private void RotateThisShipToLookAtPlayer()
+    {
+        transform.LookAt(_targetToFollow);
+    }
+
+    private void InvokeFarFromPlayerAction()
+    {
+        if (canInvokeOnIsFarFromPlayerPlayerAction)
+        {
+            OnIsFarFromPlayerPlayer?.Invoke();
+
+            canInvokeOnIsFarFromPlayerPlayerAction = false;
+
+            canInvokePositionCloseEnoughToPlayerAction = true;
         }
     }
 }

@@ -1,6 +1,8 @@
 using UnityEngine;
 
-public class EnemyShipController : MonoBehaviour
+[RequireComponent(typeof(ShooterEnemyNavMeshManager))]
+
+public class ShooterEnemyShipController : MonoBehaviour
 {
     public ShooterEnemyNavMeshManager ShipNavMeshManager { get; private set; }
 

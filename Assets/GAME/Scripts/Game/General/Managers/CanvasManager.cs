@@ -2,14 +2,9 @@ using UnityEngine;
 
 public class CanvasManager : MonoBehaviour
 {
-    [SerializeField] private ScaleTween _gameResultsPanelTween;
-
     [field: SerializeField] public AlphaTween FadeCanvasTween { get; private set; }
 
-    private void Start()
-    {
-        FadeCanvasTween.PlayFadeOutAnimation();
+    [SerializeField] private ScaleTween _gameResultsPanelTween;
 
-        GameManager.Instance.GameSessionManager.OnGameSessionEnds += _gameResultsPanelTween.PlayScaleInAnimation;
-    }
+    private void Start() => GameManager.Instance.GameSessionManager.OnGameSessionStopped += _gameResultsPanelTween.PlayScaleInAnimation;
 }

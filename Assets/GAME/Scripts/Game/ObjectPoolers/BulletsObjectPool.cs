@@ -7,7 +7,7 @@ public class BulletsObjectPool : MonoBehaviour
 
     [SerializeField] private GameObject _bulletPrefab;
 
-    private Queue<Bullet> _bulletsDictionary = new Queue<Bullet>();
+    private readonly Queue<Bullet> _bulletsDictionary = new Queue<Bullet>();
 
     private void Start() => InitializeBulletsObjectPool();
     

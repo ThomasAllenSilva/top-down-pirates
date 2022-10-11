@@ -3,11 +3,9 @@ using UnityEngine;
 
 public class ShooterEnemyShootManager : MonoBehaviour
 {
-    private EnemyShipController _shipController;
+    [SerializeField] private Transform _shootSpawnPoint;
 
     [SerializeField] private float _shootDelay;
-
-    [SerializeField] private Transform _shootSpawnPoint;
 
     [SerializeField] private int _bulletDamageFromThisEnemy;
     
@@ -15,24 +13,30 @@ public class ShooterEnemyShootManager : MonoBehaviour
 
     private bool shootCoroutineIsAlreadyRunnning;
 
-    private void Awake() => _shipController = transform.parent.GetComponent<EnemyShipController>();
+    private ShooterEnemyShipController _shipController;
+
+    private void Awake() => _shipController = transform.parent.GetComponent<ShooterEnemyShipController>();
 
     private void Start()
     {
-        _shipController.ShipNavMeshManager.OnReachedPositionCloseEnoughToPlayer += SetCanShootBoolToTrue;
-        _shipController.ShipNavMeshManager.OnIsFarFromPlayerPlayer += SetCanShootBoolToFalse;
-        GameManager.Instance.GameSessionManager.OnGameSessionEnds += SetCanShootBoolToFalse;
+        _shipController.ShipNavMeshManager.OnReachedPositionCloseEnoughToPlayer += StartShootingOnPlayer;
+
+        _shipController.ShipNavMeshManager.OnIsFarFromPlayerPlayer += StopShootingOnPlayer;
+
+        GameManager.Instance.GameSessionManager.OnGameSessionStopped += StopShootingOnPlayer;
     }
 
     private IEnumerator Shoot()
     {
+        canShoot = true;
+
         if (!shootCoroutineIsAlreadyRunnning)
         {
             shootCoroutineIsAlreadyRunnning = true;
 
             while (canShoot)
             {
-                GameManager.Instance.BulletsObjectPool.SpawnBulletFromPool(_shootSpawnPoint.position, transform.rotation, 1, gameObject.layer);
+                GameManager.Instance.BulletsObjectPool.SpawnBulletFromPool(_shootSpawnPoint.position, transform.rotation, _bulletDamageFromThisEnemy, gameObject.layer);
                 yield return new WaitForSecondsRealtime(_shootDelay);
             }
 
@@ -40,34 +44,29 @@ public class ShooterEnemyShootManager : MonoBehaviour
         }
     }
 
-    private void SetCanShootBoolToTrue()
-    {
-        canShoot = true;
+    private void StartShootingOnPlayer()
+    {    
         StartCoroutine(Shoot());
     }
 
-    private void SetCanShootBoolToFalse()
+    private void StopShootingOnPlayer()
     {
         canShoot = false;
     }
 
-    private void OnDisable()
-    {
-        shootCoroutineIsAlreadyRunnning = false;
-    }
-
+    private void OnDisable() => shootCoroutineIsAlreadyRunnning = false;
+    
     private void OnDestroy()
     {
         if (_shipController != null)
         {
-            _shipController.ShipNavMeshManager.OnReachedPositionCloseEnoughToPlayer -= SetCanShootBoolToTrue;
-            _shipController.ShipNavMeshManager.OnIsFarFromPlayerPlayer -= SetCanShootBoolToFalse;
+            _shipController.ShipNavMeshManager.OnReachedPositionCloseEnoughToPlayer -= StartShootingOnPlayer;
+            _shipController.ShipNavMeshManager.OnIsFarFromPlayerPlayer -= StopShootingOnPlayer;
         }
 
         if(GameManager.Instance != null)
         {
-            GameManager.Instance.GameSessionManager.OnGameSessionEnds -= SetCanShootBoolToFalse;
+            GameManager.Instance.GameSessionManager.OnGameSessionStopped -= StopShootingOnPlayer;
         }
     }
-
 }

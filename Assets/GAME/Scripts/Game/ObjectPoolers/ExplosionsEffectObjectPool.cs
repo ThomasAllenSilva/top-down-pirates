@@ -7,7 +7,7 @@ public class ExplosionsEffectObjectPool : MonoBehaviour
 
     [SerializeField] private GameObject _explosionEffectPrefab;
 
-    private Queue<ExplosionEffect> _explosionsEffectDictionary = new Queue<ExplosionEffect>();
+    private readonly Queue<ExplosionEffect> _explosionsEffectDictionary = new Queue<ExplosionEffect>();
 
     private void Start() => InitializeExplosionsObjectPool();
 

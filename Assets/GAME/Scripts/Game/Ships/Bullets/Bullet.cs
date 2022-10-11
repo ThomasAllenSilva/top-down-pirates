@@ -2,12 +2,11 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    [Range(0, 25)]
-    [SerializeField] private float _bulletMovementSpeed;
+    private static GameManager _gameManager;
+
+    [Range(0, 25)] [SerializeField] private float _bulletMovementSpeed;
 
     private int _bulletDamage;
-
-    private static GameManager _gameManager;
 
     private void Start() => _gameManager = GameManager.Instance;
     
@@ -16,11 +15,6 @@ public class Bullet : MonoBehaviour
     public void SetBulletDamage(int bulletDamage)
     {
         _bulletDamage = bulletDamage;
-    }
-
-    private void OnCollisionEnter(Collision collidedGameObject)
-    {
-       
     }
 
     private void OnTriggerEnter(Collider collidedGameObject)

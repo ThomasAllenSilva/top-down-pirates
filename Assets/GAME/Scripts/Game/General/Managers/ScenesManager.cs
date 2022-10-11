@@ -8,6 +8,8 @@ public class ScenesManager : MonoBehaviour
 
     public event Action OnGameSceneLoaded;
 
+    private const int GameSceneBuildIndex = 1;
+
     private void Awake()
     {
         if (Instance == null)
@@ -27,7 +29,7 @@ public class ScenesManager : MonoBehaviour
 
     private void CheckIfCanInvokeOnGameSceneLoadedAction(Scene arg0, LoadSceneMode arg1)
     {
-        if(SceneManager.GetActiveScene().buildIndex == 1)
+        if(SceneManager.GetActiveScene().buildIndex == GameSceneBuildIndex)
         {
             OnGameSceneLoaded?.Invoke();
         }
@@ -35,6 +37,8 @@ public class ScenesManager : MonoBehaviour
 
     public void LoadSceneByIndex(int sceneIndex)
     {
-        SceneManager.LoadScene(sceneIndex);
+        if (sceneIndex <= SceneManager.sceneCount && sceneIndex >= 0) SceneManager.LoadScene(sceneIndex);
+
+        else throw new Exception("Does Not Exist Scene In The Index: " + sceneIndex);
     }
 }

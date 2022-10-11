@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(Image))]
+
 public class ShipHealthBar : MonoBehaviour
 {
     private Image _shipHealthBarImage;
@@ -13,14 +15,12 @@ public class ShipHealthBar : MonoBehaviour
         _shipHealthManager = transform.parent.parent.GetComponent<ShipHealthManager>();
     }
 
-    private void Start()
-    {
-        _shipHealthManager.OnTakeDamage += FillOutShipHealthBarImage;
-    }
-
+    private void Start() => _shipHealthManager.OnTakeDamage += FillOutShipHealthBarImage;
+    
     private void FillOutShipHealthBarImage()
     {
         float healthFillPercent = (float) _shipHealthManager.CurrentShipHealth / _shipHealthManager.ShipMaxHealth;
+
         _shipHealthBarImage.fillAmount = healthFillPercent;
     }
 
@@ -29,11 +29,8 @@ public class ShipHealthBar : MonoBehaviour
         _shipHealthBarImage.fillAmount = 1f;
     }
 
-    private void OnEnable()
-    {
-        ResetHealthBarUIImageFillAmount();
-    }
-
+    private void OnEnable() => ResetHealthBarUIImageFillAmount();
+   
     private void OnDestroy()
     {
         if (_shipHealthManager != null)

@@ -9,7 +9,7 @@ public class EnemiesShipsObjectPooler : MonoBehaviour
 
     [SerializeField] private GameObject _chaserEnemyPrefab;
 
-    private Dictionary<TypesOfEnemiesShips, Queue<GameObject>> _enemiesDictionary = new Dictionary<TypesOfEnemiesShips, Queue<GameObject>>();
+    private readonly Dictionary<TypesOfEnemiesShips, Queue<GameObject>> _enemiesDictionary = new Dictionary<TypesOfEnemiesShips, Queue<GameObject>>();
 
     private void Awake()
     {
@@ -36,11 +36,11 @@ public class EnemiesShipsObjectPooler : MonoBehaviour
 
         for (int i = 0; i < _enemiesPoolSize * 0.5f; i++)
         {
-            GameObject enemyShip = Instantiate(typeOfEnemyShipToSpawn);
+            GameObject enemyShipPooled = Instantiate(typeOfEnemyShipToSpawn);
 
-            enemyShip.SetActive(false);
+            enemyShipPooled.SetActive(false);
 
-            enemyShipsQueue.Enqueue(enemyShip);
+            enemyShipsQueue.Enqueue(enemyShipPooled);
         }
 
         _enemiesDictionary.Add(typeOfEnemy, enemyShipsQueue);
@@ -48,7 +48,7 @@ public class EnemiesShipsObjectPooler : MonoBehaviour
 
     public bool SpawnEnemyShipFromPool(Vector3 positionToSpawn, TypesOfEnemiesShips typeOfEnemyToSpawn)
     {
-        _enemiesDictionary[typeOfEnemyToSpawn].TryDequeue(out GameObject enemyShipSpawned);
+        GameObject enemyShipSpawned = _enemiesDictionary[typeOfEnemyToSpawn].Dequeue();
 
         _enemiesDictionary[typeOfEnemyToSpawn].Enqueue(enemyShipSpawned);
 

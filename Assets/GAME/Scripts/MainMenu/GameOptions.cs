@@ -1,16 +1,15 @@
-using UnityEngine;
 using TMPro;
-using System;
+using UnityEngine;
 
 public class GameOptions : MonoBehaviour
 {
-    private int _gameSessionTime = 1;
-
-    private float _enemySpawnTime = 1;
-
     [SerializeField] private TextMeshProUGUI _gameSessionTimeText;
 
     [SerializeField] private TextMeshProUGUI _enemySpawnTimeText;
+
+    private int _gameSessionTime = 1;
+
+    private float _enemySpawnTime = 1;
 
     private static GameOptions Instance;
 
@@ -30,14 +29,12 @@ public class GameOptions : MonoBehaviour
         UpdateGameSessionTimeText();
     }
 
-    private void Start()
-    {
-        ScenesManager.Instance.OnGameSceneLoaded += ApplyGameOptionsToGameManager;
-    }
+    private void Start() => ScenesManager.Instance.OnGameSceneLoaded += ApplyGameOptionsToGameManager;
+    
 
     private void ApplyGameOptionsToGameManager()
     {
-        GameManager.Instance.ApplyPlayerGameOptions(_gameSessionTime, _enemySpawnTime);
+        GameManager.Instance.ApplyGameOptions(_gameSessionTime, _enemySpawnTime);
     }
 
     public void IncreaseGameSessionTime()
@@ -46,16 +43,16 @@ public class GameOptions : MonoBehaviour
         UpdateGameSessionTimeText();
     }
 
-    public void IncreaseEnemySpawnTime()
-    {
-        if (_enemySpawnTime < 5) _enemySpawnTime += 0.5f;
-        UpdateEnemySpawnTimeText();
-    }
-
     public void DecreaseGameSessionTime()
     {
         if (_gameSessionTime > 1) _gameSessionTime -= 1;
         UpdateGameSessionTimeText();
+    }
+
+    public void IncreaseEnemySpawnTime()
+    {
+        if (_enemySpawnTime < 5) _enemySpawnTime += 0.5f;
+        UpdateEnemySpawnTimeText();
     }
 
     public void DecreaseEnemySpawnTime()

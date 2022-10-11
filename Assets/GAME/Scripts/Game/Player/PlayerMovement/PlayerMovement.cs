@@ -5,8 +5,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [Range(0f, 300f)]
-    [SerializeField] private float _playerMovementSpeed = 120f;
+    [Range(0f, 300f)] [SerializeField] private float _playerMovementSpeed = 120f;
 
     private float _playerMovementInputValue;
 
@@ -22,7 +21,7 @@ public class PlayerMovement : MonoBehaviour
         _playerRigidbody = GetComponent<Rigidbody>();
     }
 
-    private void Update() => _playerMovementInputValue = _playerController.PlayerInputs.GetPlayerMovementValue();  
+    private void Update() => _playerMovementInputValue = _playerController.PlayerInputs.PlayerMovementInputValue();  
     
     private void FixedUpdate() => MovePlayer();
     
@@ -30,11 +29,6 @@ public class PlayerMovement : MonoBehaviour
     {
         _directionPlayerShouldMove = _playerMovementSpeed * Time.fixedDeltaTime * _playerMovementInputValue * -transform.up;
 
-        MovePlayerToDirection(_directionPlayerShouldMove);
-    }
-
-    public void MovePlayerToDirection(Vector3 directionToMove)
-    {
-        _playerRigidbody.velocity = new Vector3(directionToMove.x, 0f, directionToMove.z);
+        _playerRigidbody.velocity = _directionPlayerShouldMove;
     }
 }

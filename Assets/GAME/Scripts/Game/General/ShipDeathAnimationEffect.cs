@@ -1,5 +1,7 @@
 using UnityEngine;
 
+[RequireComponent(typeof(Animator))]
+
 public class ShipDeathAnimationEffect : MonoBehaviour
 {
     private Animator _shipAnimator;
@@ -13,8 +15,5 @@ public class ShipDeathAnimationEffect : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    private void OnEnable()
-    {
-        _shipAnimator.Play(ShipDeathAnimationName);
-    }
+    private void OnEnable() => _shipAnimator.Play(ShipDeathAnimationName);
 }
